@@ -5,18 +5,18 @@ string strs[105];
 string h[13] = {"<h1>","<h2>","<h3>","<h4>","<h5>","<h6>",
 "</h1>","</h2>","</h3>","</h4>","</h5>","</h6>"};
 
-string inlineOperate(string str){ // ´¦ÀíĞĞÄÚ 
+string inlineOperate(string str){ // å¤„ç†è¡Œå†… 
 	int p1 = 0, p2 = 0;
-	while((p1 = str.find('_', p1)) != -1){ // Ç¿µ÷ 
+	while((p1 = str.find('_', p1)) != -1){ // å¼ºè°ƒ 
 		str.replace(p1, 1, "<em>");
 		p2 = str.find('_', p1+1);
 		str.replace(p2, 1, "</em>");
 	}
 	p1 = 0, p2 = 0;
-	if((p1 = str.find('[', p1)) != -1){ // ³¬Á´½Ó 
+	if((p1 = str.find('[', p1)) != -1){ // è¶…é“¾æ¥ 
 		p2 = str.find(']', p1+1);
 		string link = str.substr(p1 + 1, p2 - p1 - 1);
-		str.replace(p1, p2 - p1 + 1, ""); // ±£´æÍêÒÔºóÉ¾µô
+		str.replace(p1, p2 - p1 + 1, ""); // ä¿å­˜å®Œä»¥ååˆ æ‰
 		p1 = 0, p2 = 0;
 		p1 = str.find('(', p1);
 		str.replace(p1, 1, "<a href=\"");
@@ -31,37 +31,37 @@ int main(){
 	string line, lastLine;
 	int pFlag = 0, uFlag = 0, flag = 0;
 	while(getline(cin, line)){
-		if(line != ""){ // ·Ç¿ÕĞĞ 
-			if(line[0] == '#'){ // ±êÌâ
-				int i = 0, p1 = 0; // i¸ö# 
+		if(line != ""){ // éç©ºè¡Œ 
+			if(line[0] == '#'){ // æ ‡é¢˜
+				int i = 0, p1 = 0; // iä¸ª# 
 				while(line[++i] == '#'){}
-				while((p1 = line.find("  ")) != -1){ // È¥³ı¿Õ¸ñ 
+				while((p1 = line.find("  ")) != -1){ // å»é™¤ç©ºæ ¼ 
 					line.replace(p1, 2, " ");
 				}
 				line.replace(0, i, "#");
 				line.replace(0, 2, "");
 				line = h[i-1] + line + h[i+5];
-			} else if(line[0] == '*'){ // ÎŞĞòÁĞ±í
+			} else if(line[0] == '*'){ // æ— åºåˆ—è¡¨
 				int p1 = 0;
-				while((p1 = line.find("  ")) != -1){ // È¥³ı¿Õ¸ñ 
+				while((p1 = line.find("  ")) != -1){ // å»é™¤ç©ºæ ¼ 
 					line.replace(p1, 2, " ");
 				}
-				line.replace(0, 2, ""); // È¥³ıÇ°Á½¸ö
+				line.replace(0, 2, ""); // å»é™¤å‰ä¸¤ä¸ª
 				line = "<li>" + line + "</li>";
-			} else { // ¶ÎÂä
-				if(!pFlag){ // ´òÍ·µÄp
+			} else { // æ®µè½
+				if(!pFlag){ // æ‰“å¤´çš„p
 					line = "<p>" + line;
 					pFlag++;
 				}
 			}
-		} else { // ¶ÎÂä½áÊø 
+		} else { // æ®µè½ç»“æŸ 
 			pFlag = 0;
 		}
 		strs[flag++] = inlineOperate(line);
 	}
 	uFlag = 0, pFlag = 0;
 	for(int i = 0; i < flag; i++){
-		if(strs[i].substr(0, 2) == "<p"){ // ¶ÎÊ×Æô¶¯
+		if(strs[i].substr(0, 2) == "<p"){ // æ®µé¦–å¯åŠ¨
 			pFlag = 1;
 			for(int j = i+1; j < flag;j++){
 				if(strs[j] == ""){
@@ -86,7 +86,7 @@ int main(){
 			}
 		}
 	}
-	for(int i = 0; i < flag; i++){ // ÓÃ×÷Êä³ö 
+	for(int i = 0; i < flag; i++){ // ç”¨ä½œè¾“å‡º 
 		if(i == flag-1){
 			if(pFlag){
 				strs[i] = strs[i] + "</p>";
@@ -102,11 +102,12 @@ int main(){
 } 
 
 /*
-	ÄÑµã£º
-		ÔõÃ´Çø·ÖÁ½¸ö×ÔÈ»¶Î ÒÔ¼° Ò»¸ö×ÔÈ»¶ÎÊ²Ã´Ê±ºò½áÊø 
-		if(line == ""){ // ÅĞ¶Ï¿ÕĞĞ 
+	éš¾ç‚¹ï¼š
+		æ€ä¹ˆåŒºåˆ†ä¸¤ä¸ªè‡ªç„¶æ®µ ä»¥åŠ ä¸€ä¸ªè‡ªç„¶æ®µä»€ä¹ˆæ—¶å€™ç»“æŸ 
+		if(line == ""){ // åˆ¤æ–­ç©ºè¡Œ 
 			
 		}
+	PS: only 90 score! i can not get 100
 		
 # Heading
 
